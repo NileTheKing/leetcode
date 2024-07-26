@@ -20,3 +20,4 @@ class Solution {
         return count == rooms.size();  // 모든 방을 방문했는지 확인
     }
 }
+
