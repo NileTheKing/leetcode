@@ -6,6 +6,7 @@ class Solution {
         stack.push(0);  // 첫 번째 방을 스택에 추가
         int count = 1;
 
+        
         while (!stack.isEmpty()) {
             int room = stack.pop();  // 스택에서 방 번호를 꺼냄
             for (int key : rooms.get(room)) {  // 현재 방에서 얻은 모든 키를 반복
