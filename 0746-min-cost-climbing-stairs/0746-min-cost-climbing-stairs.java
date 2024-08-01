@@ -1,20 +1,18 @@
 class Solution {
     public int minCostClimbingStairs(int[] cost) {
-        int[] minimumCost = new int[cost.length];
-        return calc(cost, minimumCost);
+        int n = cost.length;
+        if (n == 0) return 0;
+        if (n == 1) return cost[0];
         
-    }
-    
-    public int calc(int[] cost, int[] minimumCost){
-        minimumCost[0] = cost[0];
-        minimumCost[1] = cost[1];
+        int first = cost[0]; //불필요한 bottomup table 대신 두개만 저장하면 되므로 변수 두개 선언
+        int second = cost[1];
         
-        for(int i = 2; i < cost.length; i++){
-            minimumCost[i] = Math.min(minimumCost[i-1] + cost[i], minimumCost[i - 2] + cost[i]);
+        for (int i = 2; i < n; i++) {
+            int current = Math.min(first, second) + cost[i];
+            first = second;
+            second = current;
         }
         
-        return Math.min(minimumCost[cost.length -2], minimumCost[cost.length -1]);
-        
-        
+        return Math.min(first, second);
     }
 }
