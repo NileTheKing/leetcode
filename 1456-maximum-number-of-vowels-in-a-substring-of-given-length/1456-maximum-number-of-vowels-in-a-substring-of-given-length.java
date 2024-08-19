@@ -1,38 +1,37 @@
 class Solution {
-   public boolean containsVowel(String s, int index) {
-    char ch = s.charAt(index); // index 위치의 문자를 가져옴
-    return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'); // 소문자 모음만 체크
-}
+    public boolean containsVowel(String s, int index) {
+        char ch = s.charAt(index); // index 위치의 문자를 가져옴
+        return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u'); //모음 체크
+    }
+
     public int maxVowels(String s, int k) {
+        int max = 0;
         int count = 0;
-        for(int i = 0; i < k; i++){
-            if(containsVowel(s, i))
+
+        // 초기 k 길이의 모음 개수를 계산
+        for (int i = 0; i < k; i++) {
+            if (containsVowel(s, i)) {
                 count++;
+            }
         }
-        
-        int max = count;
-        for(int i = 1; i <= s.length() - k; i++){
-            if(containsVowel(s, i - 1)){//움직이면서 빠지는 거 확인
-                if(containsVowel(s, i + k - 1))//새로 들어온 거 확인
-                    continue;//1개빠지고 1개 늘었으므로 아무것도 안함
-                else{
-                    //1개 빠지고 0개 추가이므로 -1
-                    count--;
-                }
+        max = count; // 초기 최대값 설정
+
+        // 슬라이딩 윈도우 기법
+        for (int i = 1; i <= s.length() - k; i++) {
+            // 이전 문자 확인
+            if (containsVowel(s, i - 1)) {
+                count--; // 이전 문자가 모음이면 카운트 감소
             }
-            else{// 안빠졌는데
-                if(containsVowel(s, i + k - 1)) // 0개빠지고 1개늘었으므로 아묵서도 안함
-                    count++;
-                else{
-                    //0개빠지고 0개 들어왔으므로 -1
-                    continue;
-                }
+            // 새로 들어온 문자 확인
+            if (containsVowel(s, i + k - 1)) {
+                count++; // 새로 들어온 문자가 모음이면 카운트 증가
             }
-            if(count > max)
+            // 최대 모음 개수 업데이트
+            if (count > max) {
                 max = count;
+            }
         }
 
         return max;
-        
     }
 }
