@@ -22,15 +22,18 @@ class Solution {
         }
 
         //빈도수 비교
-        Arrays.sort(listA);
-        Arrays.sort(listB);
+        Map<Integer, Integer> countMap1 = new HashMap<>();
+        Map<Integer, Integer> countMap2 = new HashMap<>();
 
-        for (int i = 0; i < 26; ++i) {
-            if (listA[i] != listB[i]) {
-                return false; 
+        for (int i = 0; i < 26; i++) {
+            if (listA[i] > 0) {
+                countMap1.put(listA[i], countMap1.getOrDefault(listA[i], 0) + 1);
+            }
+            if (listB[i] > 0) {
+                countMap2.put(listB[i], countMap2.getOrDefault(listB[i], 0) + 1);
             }
         }
-        return true;
 
+        return countMap1.equals(countMap2);
     }
 }
