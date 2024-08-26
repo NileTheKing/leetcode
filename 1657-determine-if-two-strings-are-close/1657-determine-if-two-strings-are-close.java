@@ -6,11 +6,6 @@ class Solution {
         int[] listA = new int[26];
         int[] listB = new int[26];
 
-        for(int i = 0; i < listA.length; i++){ //초기화
-            listA[i] = 0;
-            listB[i] = 0;
-        }
-
         
         for(int i = 0; i < word1.length(); i++){ //빈도수
             listA[word1.charAt(i) - 'a']++;
@@ -30,7 +25,12 @@ class Solution {
         Arrays.sort(listA);
         Arrays.sort(listB);
 
-        return Arrays.equals(listA, listB);
+        for (int i = 0; i < 26; ++i) {
+            if (listA[i] != listB[i]) {
+                return false; 
+            }
+        }
+        return true;
 
     }
 }
