@@ -25,7 +25,7 @@ class Solution {
             return 0;
         }
 
-        Queue<TreeNode> queue = new LinkedList<>();
+        Deque<TreeNode> queue = new ArrayDeque<>();
         queue.offer(node);
         int level = 0;
         int max = Integer.MIN_VALUE;;
