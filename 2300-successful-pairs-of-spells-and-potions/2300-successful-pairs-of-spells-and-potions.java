@@ -7,11 +7,10 @@ class Solution {
         int[] answer = new int[sLength];
 
         for(int i = 0; i < sLength; i++){//
-            int pLow, pHigh, pMid;
-            pLow = 0;
-            pHigh = pLength - 1;
+            int pLow = 0;
+            int pHigh = pLength - 1;
             while(pLow <= pHigh){//potions값을 이진탐색. 목적? 같을 떄 까지 찾고 거기서부터 카운트.
-                pMid = pLow + (pHigh - pLow)/2;
+                int pMid = pLow + (pHigh - pLow)/2;
                 long mult = (long)spells[i] * potions[pMid];
                 if(mult < success){
                     pLow = pMid + 1;
@@ -30,8 +29,3 @@ class Solution {
         return answer;
     }
 }
-
-/*
-
-
-*/
