@@ -12,9 +12,9 @@ class Solution {
         //prefixSum[]은 nums인덱스 기준 0은 0이고 1부터 마지막 인덱스까지 값을 가진다
         //suffixSum[]은 nums인덱스 기준 마지막인덱스는 0이고 마지막 인덱스 전부터 맨 처음 인덱스까지 값을 가진다.
 
-        prefixSum[1] = nums[0];
-        suffixSum[size -1 - 1] = nums[size - 1];
-        for(int i = 2; i < size; i++){
+        prefixSum[0] = 1;
+        suffixSum[size -1] = 1;
+        for(int i = 1; i < size; i++){
             prefixSum[i] = prefixSum[i - 1] * nums[i - 1];
             //ex prefixSum[2]는 1의 prefix와 nums[1]임.
             //i = 2가정
@@ -26,11 +26,9 @@ class Solution {
     
         
 
-        for(int i = 0; i < size - 1; i++){
+        for(int i = 0; i < size; i++){
             ans[i] = prefixSum[i] * suffixSum[i];
         }
-        ans[0] = suffixSum[0];
-        ans[size - 1] = prefixSum[size - 1];
 
         return ans;
     }
