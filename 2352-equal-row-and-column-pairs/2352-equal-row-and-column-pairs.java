@@ -1,51 +1,47 @@
 class Solution {
     public int equalPairs(int[][] grid) {
-        HashSet<StringBuilder> map1 = new HashSet<>();
-        HashSet<StringBuilder> map2 = new HashSet<>();
+        Map<String, Integer> row = new HashMap<>(); //값과 출현횟수
+        Map<String, Integer> col = new HashMap<>();
+        int count = 0;
 
-        for(int i = 0; i < grid.length; i++){
+        //row, col 추가
+        for(int i = 0; i < grid.length; i++) {
             StringBuilder sb = new StringBuilder();
-            for(int j = 0; j < grid[0].length; j++){
-                sb.append(Integer.toString(grid[i][j]));
-                sb.append(" ");
+            for (int j = 0; j < grid.length; j++){
+                sb.append(grid[i][j]).append(",");
             }
-            map1.add(sb);
+            String nums = sb.toString();
+            row.put(nums, row.getOrDefault(nums, 0) + 1);
         }
 
-        for(int i = 0; i < grid.length; i++){
+        for(int i = 0; i < grid.length; i++) {
             StringBuilder sb = new StringBuilder();
-            for(int j = 0; j < grid[0].length; j++){
-                sb.append(Integer.toString(grid[j][i]));
-                sb.append(" ");
+            for (int j = 0; j < grid.length; j++){
+                sb.append(grid[j][i]).append(",");
             }
-            map2.add(sb);
+            String nums = sb.toString();
+            col.put(nums, col.getOrDefault(nums, 0) + 1);
         }
 
-        int cnt = 0;
-        for(StringBuilder sb1 : map1){
-            for(StringBuilder sb2 : map2){
-                if(sb1.toString().equals(sb2.toString())){
-                    cnt++;
-                }
+        //비교 및 카운팅
+        for(String key : row.keySet()) {
+            if(col.containsKey(key)) {
+                count = count + row.get(key) * col.get(key);
             }
         }
+        return count;
+        
 
-        return cnt;
     }
 }
-
+//열 해시 만들고
+//행 해시 만들어서
+//열 277을 저장해
+//행 277도 저장되어 있으므로 카운트.
 /**
-점을 순회하면서 거기의 행과 거기의 열이 일치하면 그거 세고 갯수 리턴.
-그렇다면 해시는 [3122][1445][2422][2422]이렇게 구성이 되어야한다.그렇다면 생각나는 방법은
-스트링빌더로 인트를 스트링응로 바꾼다음에 추가를 해가
-그리고 완성된거를 넣어. 그리고 비교.
-같다면 카운트 굳
-
-11,1
-1,11
-
-이라면 해시1은 11,1 / 1,11이고
-      해시2는 11,1/ 1,11이다.
-    답은 2여야 하는데 4가 나온다.
-    아 11때문에..
+Q:해시셋과 해시맵 중 어떤 것을 사용해야 하는가?
+해시셋은 값만 해시맵은 키-밸류....
+해시끼리 비교를 할거고 같으면 카운트를 할것임.
+해시끼리는 값을 비교하겠지 밸류값.
+해시맵끼리 비교해야할듯 example2에서 밸류는 같지만 키가 다르니까 중복카운트함.
  */
