@@ -1,7 +1,6 @@
 class Solution {
     public int equalPairs(int[][] grid) {
         Map<String, Integer> row = new HashMap<>(); //값과 출현횟수
-        Map<String, Integer> col = new HashMap<>();
         int count = 0;
 
         //row, col 추가
@@ -20,15 +19,9 @@ class Solution {
                 sb.append(grid[j][i]).append(",");
             }
             String nums = sb.toString();
-            col.put(nums, col.getOrDefault(nums, 0) + 1);
+            count = count + row.getOrDefault(nums, 0);
         }
 
-        //비교 및 카운팅
-        for(String key : row.keySet()) {
-            if(col.containsKey(key)) {
-                count = count + row.get(key) * col.get(key);
-            }
-        }
         return count;
         
 
