@@ -9,17 +9,31 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null || root == p || root == q){
-            return root;
-        }
+        
+        if(root == null) return null;
 
-        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        if(root == p || root == q) return root;//찾았음
+
+        TreeNode left = lowestCommonAncestor(root.left, p, q); //이걸 하면 찾은 노드가 리턴됨
         TreeNode right = lowestCommonAncestor(root.right, p, q);
 
-        if(left != null && right != null) {//this means that none of subtree reached the bottom, meaning that it derives from a same stem.
+        if(left != null && right != null){
             return root;
         }
-        return left == null ? right : left;
+        if(left == null && right != null) {
+            return right;
+        }
+        if(left != null && right == null){
+            return left;
+        }
+
+        return null;
     }
 
+
 }
+/**
+LCA는 경우의수가
+1. LCA가 두 자식의 부모 -> 부모가 리턴
+2. 하나의 노드가 LCA이고 그것이 자식노드 ->
+ */
