@@ -48,28 +48,30 @@ dfs에서 탐색이 종료되면(예를들어 1도시를 메인함수에서 진�
 2번 진입 2번정보 확인 아 만약 들어갈 곳이 없으면 카운트임.궁금한건
 재귀함수를 호출한 함수에서도 해당 함수가 종료 되고 나면 카운트를 늘리지 않을까 함.
  */
- 
-class Solution {
+ class Solution {
     int cnt = 0;
+
     public int findCircleNum(int[][] isConnected) {
         int size = isConnected.length;
         boolean[] visited = new boolean[size];
 
-        for(int i = 0; i < size; i++) {
-            dfs(i, visited, isConnected);
+        for (int i = 0; i < size; i++) {
+            if(!visited[i]) {
+                dfs(i, visited, isConnected);
+                cnt++;
+            }
         }
         return cnt;
     }
 
     public void dfs(int city, boolean[] visited, int[][] isConnected) {
-        if(visited[city]) return;
+        if (visited[city]) return;  // 이미 방문한 도시는 종료
         visited[city] = true;
-        for(int i = 0; i < isConnected.length; i++) {
-            if(!visited[i] && isConnected[city][i] == 1) {
-                dfs(i, visited, isConnected);
-                return;
+
+        for (int i = 0; i < isConnected.length; i++) {
+            if (!visited[i] && isConnected[city][i] == 1) {
+                dfs(i, visited, isConnected);  // 연결된 도시를 재귀적으로 탐색
             }
         }
-        cnt++;
     }
 }
