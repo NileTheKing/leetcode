@@ -16,12 +16,11 @@ class Solution {
         suffixSum[size -1] = 1;
         for(int i = 1; i < size; i++){
             prefixSum[i] = prefixSum[i - 1] * nums[i - 1];
-            //ex prefixSum[2]는 1의 prefix와 nums[1]임.
-            //i = 2가정
-            suffixSum[size - 1  -i] = suffixSum[size - 1 - i + 1]  * nums[size - 1 - i + 1];
-            //suffixsum[맨마지막에서 세번째] = suffixSum[맨마지막에서 두번쨰] * nums[맨마지막에서 두번째]
         }
-        //맨 마지막 i에 대해 suffixSum은 suffixSum[size -1 - size +1]=suffixSum[0] =suffixSum[1] * nums[1]
+
+        for(int j = size - 1 - 1; j >= 0; j--){
+            suffixSum[j] = suffixSum[j + 1] * nums[j + 1];
+        }
 
     
         
