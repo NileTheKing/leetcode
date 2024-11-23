@@ -14,33 +14,33 @@
  * }
  */
 class Solution {
-    private int count = 0;
+    private HashMap<Long, Integer> prefixSum;
+    private int count;
     public int pathSum(TreeNode root, int targetSum) {
-        if(root == null) return 0;
+        prefixSum = new HashMap<>();
+        count = 0;
 
-        long currentSum = 0;
-        pathSum(root.left, targetSum);
-        pathSum(root.right, targetSum);
-        dfs(root, targetSum, currentSum);
+        dfs(root, targetSum, 0);
 
         return count;
     }
     public void dfs(TreeNode node, int targetSum, long currentSum) {
-        if(node == null) {
-            return;
-        }
+        if(node == null) return;
+
         currentSum += node.val;
-        if(currentSum == targetSum) {
+        
+        if(currentSum == targetSum){
             count++;
         }
+        count += prefixSum.getOrDefault(currentSum - targetSum, 0);
+
+        prefixSum.put(currentSum, prefixSum.getOrDefault(currentSum, 0) + 1);
 
         dfs(node.left, targetSum, currentSum);
         dfs(node.right, targetSum, currentSum);
+
+        prefixSum.put(currentSum, prefixSum.get(currentSum) - 1);//백트래킹해서 줄이기
+        
+        
     }
 }
-/**
-모든 방법 트라이. 쭉이어서 하는 것. 그리고 거기서 다시 시작하는 것.
-I might not have to check for the already-visited nodes.
-stackedSums는 키값이 합이고 밸류가 뭐지? 해시맵은 왜쓰고 누적합은 어떻게 활용하여야 할까/?
-
- */
