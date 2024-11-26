@@ -1,18 +1,15 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int n = piles.length;
 
         int end = Integer.MIN_VALUE; //MAX
         int start = 1; //MIN
         int mid = 0;
         int ans = end;
-        for(int i = 0; i < n; i++) {
-            if(piles[i] >= end) {//max
-                end = piles[i];
+       
+        for(int pile : piles) {
+            if(pile > end){
+                end = pile;
             }
-            //if(piles[i] <= start) {//min
-             //   start = piles[i];
-            //}
         }
 
         while(start <= end) {
@@ -37,18 +34,19 @@ class Solution {
         //시간당 mid만큼 제거 후 다먹으면 이동. 다먹고나면 무조건 기다려야함.
         int count = 0;
         for(int pile : piles) {
-            if(pile % mid != 0){ //몫이 0이 아니면(딱 나눠떨어지는 것이 아니면) 예를들어 5개바나나고 4개먹을수있담녀 2시간걸림.
                 count += (pile+ mid - 1) / mid;
+                if(count > h){
+                    return false;
+                }
+                
             }
-            else{
-                count = count + pile / mid;
-            }
+        return count <= h;
         }
         //System.out.println("mid:" + mid + " count:" + count + " time h" + h);
-        return count <= h && count > 0 ? true : false;
+
     }
 
-}
+
 /**
 너무 커도 안됨
 너무작아도 안됨
