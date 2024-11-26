@@ -44,7 +44,7 @@ class Solution {
                 count = count + pile / mid;
             }
         }
-        System.out.println("mid:" + mid + " count:" + count + " time h" + h);
+        //System.out.println("mid:" + mid + " count:" + count + " time h" + h);
         return count <= h && count > 0 ? true : false;
     }
 
